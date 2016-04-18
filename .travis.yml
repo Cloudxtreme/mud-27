@@ -4,7 +4,7 @@ go:
   - tip
 
 install:
-  - go install github.com/Norskan/mud/mud.go
+  - go install github.com/Norskan/mud
 
 test:
   - go test github.com/Norskan/mud/test
