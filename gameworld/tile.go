@@ -79,16 +79,12 @@ func (gameTile *GameTile) SetConnetionTile(connectionTile *GameTile, direction D
 	switch direction {
 	case Up:
 		gameTile.tileUp = connectionTile
-		connectionTile.tileDown = gameTile
 	case Right:
 		gameTile.tileRight = connectionTile
-		connectionTile.tileLeft = gameTile
 	case Down:
 		gameTile.tileDown = connectionTile
-		connectionTile.tileUp = gameTile
 	case Left:
 		gameTile.tileLeft = connectionTile
-		connectionTile.tileRight = gameTile
 	}
 }
 
@@ -97,8 +93,8 @@ func (gameTile *GameTile) SetCharacter(character *Character) {
 	gameTile.character = character
 }
 
-//GetCharacter returns the character set on the tile or nil if non is set
-func (gameTile *GameTile) GetCharacter() *Character {
+//Character returns the character set on the tile or nil if non is set
+func (gameTile *GameTile) Character() *Character {
 	return gameTile.character
 }
 

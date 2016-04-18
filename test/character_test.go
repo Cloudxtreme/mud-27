@@ -16,7 +16,7 @@ func TestCharacterNewCharacter(t *testing.T) {
 
 func TestGetTilePosition(t *testing.T) {
 	newCharacter := gameworld.NewCharacter()
-	gameTile := gameworld.NewDefaultTile(actualID, actualMark)
+	gameTile := gameworld.NewDefaultTile(testTileID, testTileMark)
 
 	newCharacter.SetTilePosition(gameTile)
 
