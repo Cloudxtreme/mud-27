@@ -3,5 +3,8 @@ language: go
 go:
   - tip
 
-script:
- - go test -v ./...
+install:
+  - go install github.com/Norskan/mud/mud.go
+
+test:
+  - go test github.com/Norskan/mud/test
