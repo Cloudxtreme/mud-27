@@ -17,7 +17,7 @@ func main() {
 
 	gw := gameworld.NewGameWorld(a)
 	character := gameworld.NewCharacter()
-	gw.SetCharacter(character, gw.GameArea[1][1])
+	gw.SetCharacter(character, gw.GameArea()[1][1])
 
 	gw.PrintWorldMap()
 	fmt.Println()

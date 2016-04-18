@@ -6,7 +6,7 @@ import (
 	"github.com/Norskan/mud/gameworld"
 )
 
-func TestDirectionToStringTest(t *testing.T) {
+func TestDirectionToString(t *testing.T) {
 	if !(gameworld.Up.String() == "Up") {
 		t.Error("Expected Up for String function")
 	}
