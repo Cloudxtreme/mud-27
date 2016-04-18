@@ -6,7 +6,7 @@ import (
 	"github.com/Norskan/mud/gameworld"
 )
 
-func TestTileTypeToStringTest(t *testing.T) {
+func TestTileTypeToString(t *testing.T) {
 	if !(gameworld.Moveable.String() == "Movable") {
 		t.Error("Expected Moveable for String function")
 	}

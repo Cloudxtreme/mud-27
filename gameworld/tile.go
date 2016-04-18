@@ -33,71 +33,80 @@ func NewTile(id int, mark string, description string) *GameTile {
 }
 
 //PrintDebug returns a string that represents the state of the Tile
-func (tile *GameTile) PrintDebug() {
-	fmt.Printf("[Tile id:%v, name:%v, con[%v, %v, %v, %v]]", tile.ID(), tile.description, tile.tileUp.ID(), tile.tileRight.ID(), tile.tileDown.ID(), tile.tileLeft.ID())
+func (gameTile *GameTile) PrintDebug() {
+	fmt.Printf("[Tile id:%v, name:%v, con[%v, %v, %v, %v]]", gameTile.ID(), gameTile.description, gameTile.tileUp.ID(), gameTile.tileRight.ID(), gameTile.tileDown.ID(), gameTile.tileLeft.ID())
 }
 
 //ID getter for id property
-func (tile *GameTile) ID() int {
-	if tile == nil {
+func (gameTile *GameTile) ID() int {
+	if gameTile == nil {
 		return -1
 	}
-	return tile.id
+	return gameTile.id
 }
 
 //Mark getter for mark property
-func (tile *GameTile) Mark() string {
-	if tile.character != nil {
+func (gameTile *GameTile) Mark() string {
+	if gameTile.character != nil {
 		return "c"
 	}
-	return tile.mark
+	return gameTile.mark
 }
 
 //Description getter for the description property
-func (tile *GameTile) Description() string {
-	return tile.description
+func (gameTile *GameTile) Description() string {
+	return gameTile.description
 }
 
 //GetConnetionTile sets the connection in the direction
-func (tile *GameTile) GetConnetionTile(direction Direction) *GameTile {
+func (gameTile *GameTile) GetConnetionTile(direction Direction) *GameTile {
 	switch direction {
 	case Up:
-		return tile.tileUp
+		return gameTile.tileUp
 	case Right:
-		return tile.tileRight
+		return gameTile.tileRight
 	case Down:
-		return tile.tileDown
+		return gameTile.tileDown
 	case Left:
-		return tile.tileLeft
+		return gameTile.tileLeft
 	default:
 		return nil
 	}
 }
 
-//SetConnetionTile sets the connection in the direction
-func (tile *GameTile) SetConnetionTile(connectedTile *GameTile, direction Direction) {
+//SetConnetionTile sets the connection in the direction of both tiles
+func (gameTile *GameTile) SetConnetionTile(connectionTile *GameTile, direction Direction) {
 	switch direction {
 	case Up:
-		tile.tileUp = connectedTile
+		gameTile.tileUp = connectionTile
+		connectionTile.tileDown = gameTile
 	case Right:
-		tile.tileRight = connectedTile
+		gameTile.tileRight = connectionTile
+		connectionTile.tileLeft = gameTile
 	case Down:
-		tile.tileDown = connectedTile
+		gameTile.tileDown = connectionTile
+		connectionTile.tileUp = gameTile
 	case Left:
-		tile.tileLeft = connectedTile
+		gameTile.tileLeft = connectionTile
+		connectionTile.tileRight = gameTile
 	}
 }
 
 //SetCharacter set a character on the tile
-func (tile *GameTile) SetCharacter(character *Character) {
-	tile.character = character
+func (gameTile *GameTile) SetCharacter(character *Character) {
+	gameTile.character = character
+}
+
+//GetCharacter returns the character set on the tile or nil if non is set
+func (gameTile *GameTile) GetCharacter() *Character {
+	return gameTile.character
 }
 
 //MoveCharacter moves a character on the tile
-func (tile *GameTile) MoveCharacter(character *Character) bool {
+func (gameTile *GameTile) MoveCharacter(character *Character) bool {
 	// TODO: add logic for testing if the character can move onto the tile
 	character.tilePosition.character = nil
-	tile.character = character
-	character.tilePosition = tile
+	gameTile.character = character
+	character.tilePosition = gameTile
 	return true
 }
