@@ -5,13 +5,13 @@ type Direction int
 
 //Direction direction of the tile connection
 const (
-	//Up up direction
+	//Up direction
 	Up Direction = iota
-	//Right right direction
+	//Right direction
 	Right
-	//Down down direction
+	//Down direction
 	Down
-	//Left left direction
+	//Left direction
 	Left
 )
 
