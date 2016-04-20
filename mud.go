@@ -21,6 +21,6 @@ func main() {
 
 	gw.PrintWorldMap()
 	fmt.Println()
-	gw.MoveCharacter(character, gameworld.Right)
+	character.Move(gameworld.Right)
 	gw.PrintWorldMap()
 }

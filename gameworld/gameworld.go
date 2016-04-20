@@ -91,11 +91,6 @@ func (gw *GameWorld) SetCharacter(character *Character, gameTile *GameTile) {
 	character.tilePosition = gameTile
 }
 
-//MoveCharacter moves a character in the game world
-func (gw *GameWorld) MoveCharacter(character *Character, direction Direction) {
-	character.tilePosition.GetConnetionTile(direction).MoveCharacter(character)
-}
-
 //GameArea return the game are of the game world
 func (gw *GameWorld) GameArea() [][]*GameTile {
 	return gw.gameArea

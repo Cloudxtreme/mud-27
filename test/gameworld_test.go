@@ -6,10 +6,10 @@ import (
 	"github.com/Norskan/mud/gameworld"
 )
 
-var testGameWorldTemplateHorizontal21 = [][]string{{testTileMark, testTileMark}}
+var testGameWorldTemplateHorizontal = [][]string{{testTileMark, testTileMark}}
 
 func TestNewGameWorldHorizontal(t *testing.T) {
-	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal21)
+	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal)
 
 	//test for tilemarks
 	if !(gw.GameArea()[0][0].Mark() == testTileMark) ||
@@ -24,10 +24,10 @@ func TestNewGameWorldHorizontal(t *testing.T) {
 	}
 }
 
-var testGameWorldTemplateHorizontal12 = [][]string{{testTileMark}, {testTileMark}}
+var testGameWorldTemplateVertical = [][]string{{testTileMark}, {testTileMark}}
 
 func TestNewGameWorldVertical(t *testing.T) {
-	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal12)
+	gw := gameworld.NewGameWorld(testGameWorldTemplateVertical)
 
 	//test for tilemarks
 	if !(gw.GameArea()[0][0].Mark() == testTileMark) ||

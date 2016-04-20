@@ -19,3 +19,9 @@ func (character *Character) GetTilePositon() *GameTile {
 func (character *Character) SetTilePosition(gameTile *GameTile) {
 	character.tilePosition = gameTile
 }
+
+//Move moves the character from the current gametile into direction
+func (character *Character) Move(direction Direction) {
+	currentGameTile := character.GetTilePositon()
+	currentGameTile.GetConnetionTile(direction).MoveCharacter(character)
+}

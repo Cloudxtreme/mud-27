@@ -24,3 +24,24 @@ func TestGetTilePosition(t *testing.T) {
 		t.Error("Expected a tile on tilePosition")
 	}
 }
+
+func TestMoveCharacter(t *testing.T) {
+	character := gameworld.NewCharacter()
+	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal)
+	gw.SetCharacter(character, gw.GameArea()[0][0])
+
+	character.Move(gameworld.Right)
+
+	if !(character.GetTilePositon() == gw.GameArea()[0][1]) {
+		t.Error("Character was not moved")
+	}
+
+	if !(gw.GameArea()[0][0].Character() == nil) {
+		t.Error("Character is still on original position")
+	}
+
+	if !(gw.GameArea()[0][1].Character() == character) {
+		t.Error("Character is not on new position")
+	}
+
+}
