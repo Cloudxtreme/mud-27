@@ -24,7 +24,7 @@ func TestTileNewDefaultTile(t *testing.T) {
 }
 
 func TestTileNewTile(t *testing.T) {
-	newTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
+	newTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
 
 	if !(newTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
@@ -40,12 +40,12 @@ func TestTileNewTile(t *testing.T) {
 }
 
 func TestTileConnection(t *testing.T) {
-	tileUp := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
-	tileRight := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
-	tileDown := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
-	tileLeft := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
+	tileUp := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	tileRight := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	tileDown := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	tileLeft := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
 
-	tileMiddle := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
+	tileMiddle := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
 
 	tileMiddle.SetConnetionTile(tileUp, gameworld.Up)
 	tileMiddle.SetConnetionTile(tileRight, gameworld.Right)
@@ -71,7 +71,7 @@ func TestTileConnection(t *testing.T) {
 
 func TestTileSetCharacter(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
+	testTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
 
 	testTile.SetCharacter(actualCharacter)
 
@@ -80,10 +80,10 @@ func TestTileSetCharacter(t *testing.T) {
 	}
 }
 
-func TestTileMoveCharacter(t *testing.T) {
+func TestTileMoveCharacterMovalbe(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTileA := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
-	testTileB := gameworld.NewTile(testTileID, testTileMark, testTileDescription)
+	testTileA := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	testTileB := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
 
 	testTileA.SetConnetionTile(testTileB, gameworld.Left)
 	testTileA.SetCharacter(actualCharacter)
@@ -91,8 +91,24 @@ func TestTileMoveCharacter(t *testing.T) {
 
 	testTileB.MoveCharacter(testTileA.Character())
 
-	if !(testTileA.Character() == nil) &&
-		(testTileB.Character() == actualCharacter) {
+	if !(testTileA.Character() == nil) ||
+		!(testTileB.Character() == actualCharacter) {
 		t.Error("Character did not move correctly from testTileA to testTileB")
+	}
+}
+
+func TestTileMoveCharacterNotMovable(t *testing.T) {
+	actualCharacter := gameworld.NewCharacter()
+	testTileA := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	testTileB := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.NotMoveable)
+
+	testTileA.SetConnetionTile(testTileB, gameworld.Left)
+	testTileA.SetCharacter(actualCharacter)
+	actualCharacter.SetTilePosition(testTileA)
+
+	if testTileB.MoveCharacter(actualCharacter) ||
+		!(testTileA.Character() == actualCharacter) ||
+		!(testTileB.Character() == nil) {
+		t.Error("Character should not be able to move")
 	}
 }
