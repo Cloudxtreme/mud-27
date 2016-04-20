@@ -20,15 +20,17 @@ type GameTile struct {
 	//Character on the tile
 	// TODO: refactor to multible characters
 	character *Character
+
+	tileType TileType
 }
 
 //NewDefaultTile create a new default tile
 func NewDefaultTile(id int, mark string) *GameTile {
-	return NewTile(id, mark, "Default")
+	return NewTile(id, mark, "Default", Moveable)
 }
 
 //NewTile create new generic tile
-func NewTile(id int, mark string, description string) *GameTile {
+func NewTile(id int, mark string, description string, tileType TileType) *GameTile {
 	return &GameTile{id: id, mark: mark, description: description}
 }
 
@@ -88,21 +90,30 @@ func (gameTile *GameTile) SetConnetionTile(connectionTile *GameTile, direction D
 	}
 }
 
-//SetCharacter set a character on the tile
-func (gameTile *GameTile) SetCharacter(character *Character) {
-	gameTile.character = character
-}
-
 //Character returns the character set on the tile or nil if non is set
 func (gameTile *GameTile) Character() *Character {
 	return gameTile.character
 }
 
+//SetCharacter set a character on the tile
+func (gameTile *GameTile) SetCharacter(character *Character) {
+	gameTile.character = character
+}
+
+//TileType gets the type of the gameTile
+func (gameTile *GameTile) TileType() TileType {
+	return gameTile.TileType()
+}
+
 //MoveCharacter moves a character on the tile
 func (gameTile *GameTile) MoveCharacter(character *Character) bool {
-	// TODO: add logic for testing if the character can move onto the tile
-	character.tilePosition.character = nil
-	gameTile.character = character
-	character.tilePosition = gameTile
-	return true
+	if gameTile.TileType() == Moveable {
+		character.tilePosition.character = nil
+		gameTile.character = character
+		character.tilePosition = gameTile
+
+		return true
+	}
+
+	return false
 }
