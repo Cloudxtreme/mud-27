@@ -31,7 +31,7 @@ func NewDefaultTile(id int, mark string) *GameTile {
 
 //NewTile create new generic tile
 func NewTile(id int, mark string, description string, tileType TileType) *GameTile {
-	return &GameTile{id: id, mark: mark, description: description}
+	return &GameTile{id: id, mark: mark, description: description, tileType: tileType}
 }
 
 //PrintDebug returns a string that represents the state of the Tile
@@ -102,7 +102,7 @@ func (gameTile *GameTile) SetCharacter(character *Character) {
 
 //TileType gets the type of the gameTile
 func (gameTile *GameTile) TileType() TileType {
-	return gameTile.TileType()
+	return gameTile.tileType
 }
 
 //MoveCharacter moves a character on the tile
@@ -111,9 +111,7 @@ func (gameTile *GameTile) MoveCharacter(character *Character) bool {
 		character.tilePosition.character = nil
 		gameTile.character = character
 		character.tilePosition = gameTile
-
 		return true
 	}
-
 	return false
 }
