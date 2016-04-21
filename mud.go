@@ -17,10 +17,10 @@ func main() {
 
 	gw := gameworld.NewGameWorld(a)
 	character := gameworld.NewCharacter()
-	gw.SetCharacter(character, gw.GameArea()[1][1])
+	gw.SetCharacter(character, gw.Room().Area()[1][1])
 
-	gw.PrintWorldMap()
+	gw.Room().PrintRoom()
 	fmt.Println()
 	character.Move(gameworld.Right)
-	gw.PrintWorldMap()
+	gw.Room().PrintRoom()
 }
