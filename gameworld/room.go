@@ -8,7 +8,7 @@ type Room struct {
 }
 
 //NewRoom creates a new Room from a template
-func NewRoom(roomTemplate [][]string) *Room {
+func NewRoom(roomTemplate [][]string, tileTemplates map[string]TileTemplate) *Room {
 	room := Room{}
 
 	//fill gameArea with defautlvalue
@@ -19,7 +19,13 @@ func NewRoom(roomTemplate [][]string) *Room {
 
 		for j := 0; j < len(room.gameArea[i]); j++ {
 			//create tile
-			room.gameArea[i][j] = NewDefaultTile(count, roomTemplate[i][j])
+			tileTemplate := tileTemplates[roomTemplate[i][j]]
+
+			if tileTemplate == nil {
+				fmt.Print("No template found for mark %d", roomTemplate[i][j])
+			}
+
+			room.gameArea[i][j] = NewTile(count, tileTemplate.Mark(), tileTemplate.Description())
 			count++
 		}
 	}

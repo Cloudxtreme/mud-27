@@ -6,10 +6,10 @@ type GameWorld struct {
 }
 
 //NewGameWorld creates a new gameWorld instance
-func NewGameWorld(gameWorldTemplate [][]string) *GameWorld {
+func NewGameWorld(gameWorldTemplate [][]string, tileTemplates map[string]TileTemplate) *GameWorld {
 	gw := GameWorld{}
 
-	gw.room = NewRoom(gameWorldTemplate)
+	gw.room = NewRoom(gameWorldTemplate, tileTemplates map[string]TileTemplate)
 
 	return &gw
 }
