@@ -16,7 +16,7 @@ func TestCharacterNewCharacter(t *testing.T) {
 
 func TestGetTilePosition(t *testing.T) {
 	newCharacter := gameworld.NewCharacter()
-	gameTile := gameworld.NewDefaultTile(testTileID, testTileMark)
+	gameTile := gameworld.NewTile(testTileID, testTileWall)
 
 	newCharacter.SetTilePosition(gameTile)
 
@@ -27,20 +27,25 @@ func TestGetTilePosition(t *testing.T) {
 
 func TestMoveCharacter(t *testing.T) {
 	character := gameworld.NewCharacter()
-	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal)
-	gw.SetCharacter(character, gw.GameArea()[0][0])
+
+	tileTemplates := make(map[string]*gameworld.TileTemplate)
+	tileTemplates["."] = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
+	tileTemplates["w"] = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
+
+	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal, tileTemplates)
+	gw.SetCharacter(character, gw.Room().Area()[0][0])
 
 	character.Move(gameworld.Right)
 
-	if !(character.GetTilePositon() == gw.GameArea()[0][1]) {
+	if !(character.GetTilePositon() == gw.Room().Area()[0][1]) {
 		t.Error("Character was not moved")
 	}
 
-	if !(gw.GameArea()[0][0].Character() == nil) {
+	if !(gw.Room().Area()[0][0].Character() == nil) {
 		t.Error("Character is still on original position")
 	}
 
-	if !(gw.GameArea()[0][1].Character() == character) {
+	if !(gw.Room().Area()[0][1].Character() == character) {
 		t.Error("Character is not on new position")
 	}
 

@@ -8,44 +8,45 @@ import (
 
 //parameter for tile test values
 var testTileID = 0
-var testTileMark = "testTileMark"
-var testTileDescription = "testDescription"
+
+var testTileFloor = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
+var testTileWall = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
 
 func TestTileNewDefaultTile(t *testing.T) {
-	newDefaultTile := gameworld.NewDefaultTile(testTileID, testTileMark)
+	newDefaultTile := gameworld.NewTile(testTileID, testTileFloor)
 
 	if !(newDefaultTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
 	}
 
-	if !(newDefaultTile.Mark() == testTileMark) {
-		t.Errorf("Expected %v for Mark", testTileMark)
+	if !(newDefaultTile.Mark() == testTileFloor.Mark()) {
+		t.Errorf("Expected %v for Mark", testTileFloor.Mark())
 	}
 }
 
 func TestTileNewTile(t *testing.T) {
-	newTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	newTile := gameworld.NewTile(testTileID, testTileFloor)
 
 	if !(newTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
 	}
 
-	if !(newTile.Mark() == testTileMark) {
-		t.Errorf("Expected %v for Mark", testTileMark)
+	if !(newTile.Mark() == testTileFloor.Mark()) {
+		t.Errorf("Expected %v for Mark", testTileFloor.Mark())
 	}
 
-	if !(newTile.Description() == testTileDescription) {
-		t.Errorf("Expected %v for Description", testTileDescription)
+	if !(newTile.Description() == testTileFloor.Description()) {
+		t.Errorf("Expected %v for Description", testTileFloor.Description())
 	}
 }
 
 func TestTileConnection(t *testing.T) {
-	tileUp := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
-	tileRight := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
-	tileDown := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
-	tileLeft := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	tileUp := gameworld.NewTile(testTileID, testTileFloor)
+	tileRight := gameworld.NewTile(testTileID, testTileFloor)
+	tileDown := gameworld.NewTile(testTileID, testTileFloor)
+	tileLeft := gameworld.NewTile(testTileID, testTileFloor)
 
-	tileMiddle := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	tileMiddle := gameworld.NewTile(testTileID, testTileFloor)
 
 	tileMiddle.SetConnetionTile(tileUp, gameworld.Up)
 	tileMiddle.SetConnetionTile(tileRight, gameworld.Right)
@@ -71,7 +72,7 @@ func TestTileConnection(t *testing.T) {
 
 func TestTileSetCharacter(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTile := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	testTile := gameworld.NewTile(testTileID, testTileFloor)
 
 	testTile.SetCharacter(actualCharacter)
 
@@ -82,8 +83,8 @@ func TestTileSetCharacter(t *testing.T) {
 
 func TestTileMoveCharacterMovalbe(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTileA := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
-	testTileB := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
+	testTileA := gameworld.NewTile(testTileID, testTileFloor)
+	testTileB := gameworld.NewTile(testTileID, testTileFloor)
 
 	testTileA.SetConnetionTile(testTileB, gameworld.Left)
 	testTileA.SetCharacter(actualCharacter)
@@ -99,8 +100,8 @@ func TestTileMoveCharacterMovalbe(t *testing.T) {
 
 func TestTileMoveCharacterNotMovable(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTileA := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.Moveable)
-	testTileB := gameworld.NewTile(testTileID, testTileMark, testTileDescription, gameworld.NotMoveable)
+	testTileA := gameworld.NewTile(testTileID, testTileFloor)
+	testTileB := gameworld.NewTile(testTileID, testTileWall)
 
 	testTileA.SetConnetionTile(testTileB, gameworld.Left)
 	testTileA.SetCharacter(actualCharacter)

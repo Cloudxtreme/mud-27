@@ -24,13 +24,12 @@ type GameTile struct {
 	tileType TileType
 }
 
-//NewDefaultTile create a new default tile
-func NewDefaultTile(id int, mark string) *GameTile {
-	return NewTile(id, mark, "Default", Moveable)
+//NewTile create new generic tile
+func NewTile(id int, tileTemplate *TileTemplate) *GameTile {
+	return &GameTile{id: id, mark: tileTemplate.Mark(), description: tileTemplate.Description(), tileType: tileTemplate.TileType()}
 }
 
-//NewTile create new generic tile
-func NewTile(id int, mark string, description string, tileType TileType) *GameTile {
+func newTile(id int, mark string, description string, tileType TileType) *GameTile {
 	return &GameTile{id: id, mark: mark, description: description, tileType: tileType}
 }
 

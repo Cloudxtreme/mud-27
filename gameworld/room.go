@@ -26,7 +26,7 @@ func NewRoom(roomTemplate [][]string, tileTemplates map[string]*TileTemplate) *R
 				return nil
 			}
 
-			room.gameArea[i][j] = NewTile(count, tileTemplate.Mark(), tileTemplate.Description(), tileTemplate.TileType())
+			room.gameArea[i][j] = NewTile(count, tileTemplate)
 			count++
 		}
 	}
