@@ -29,10 +29,6 @@ func NewTile(id int, tileTemplate *TileTemplate) *GameTile {
 	return &GameTile{id: id, mark: tileTemplate.Mark(), description: tileTemplate.Description(), tileType: tileTemplate.TileType()}
 }
 
-func newTile(id int, mark string, description string, tileType TileType) *GameTile {
-	return &GameTile{id: id, mark: mark, description: description, tileType: tileType}
-}
-
 //PrintDebug returns a string that represents the state of the Tile
 func (gameTile *GameTile) PrintDebug() {
 	fmt.Printf("[Tile id:%v, name:%v, con[%v, %v, %v, %v]]", gameTile.ID(), gameTile.description, gameTile.tileUp.ID(), gameTile.tileRight.ID(), gameTile.tileDown.ID(), gameTile.tileLeft.ID())
