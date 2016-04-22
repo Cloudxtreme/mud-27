@@ -1,0 +1,9 @@
+GameWorld
+  - area templates
+  - area movements
+
+GameTile:
+  - decide on multiple character on one tile
+
+Character:
+  - items
