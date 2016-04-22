@@ -8,21 +8,21 @@ type Room struct {
 }
 
 //NewRoom creates a new Room from a template
-func NewRoom(roomTemplate [][]string, tileTemplates map[string]*TileTemplate) *Room {
+func NewRoom(roomTemplate *RoomTemplate) *Room {
 	room := Room{}
 
 	//fill gameArea with defautlvalue
 	count := 0
-	room.gameArea = make([][]*GameTile, len(roomTemplate))
+	room.gameArea = make([][]*GameTile, roomTemplate.Height())
 	for i := 0; i < len(room.gameArea); i++ {
-		room.gameArea[i] = make([]*GameTile, len(roomTemplate[i]))
+		room.gameArea[i] = make([]*GameTile, roomTemplate.Width())
 
-		for j := 0; j < len(room.gameArea[i]); j++ {
+		for j := 0; j < roomTemplate.Width(); j++ {
 			//create tile
-			tileTemplate := tileTemplates[roomTemplate[i][j]]
+			tileTemplate := roomTemplate.TileTemplates()[roomTemplate.TileTemplate(i, j)]
 
 			if tileTemplate == nil {
-				fmt.Printf("No template found for mark %s", roomTemplate[i][j])
+				fmt.Printf("No template found for mark %s", roomTemplate.TileTemplate(i, j))
 				return nil
 			}
 

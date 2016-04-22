@@ -15,11 +15,11 @@ func main() {
 	a = append(a, []string{"w", ".", ".", "w"})
 	a = append(a, []string{"w", "w", "w", "w"})
 
-	tileTemplates := make(map[string]*gameworld.TileTemplate)
-	tileTemplates["."] = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
-	tileTemplates["w"] = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
+	roomTemplate := gameworld.NewRoomTemplate(a)
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable))
 
-	gw := gameworld.NewGameWorld(a, tileTemplates)
+	gw := gameworld.NewGameWorld(roomTemplate)
 	character := gameworld.NewCharacter()
 	gw.SetCharacter(character, gw.Room().Area()[1][1])
 
