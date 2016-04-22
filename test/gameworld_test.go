@@ -9,15 +9,15 @@ import (
 var testGameWorldTemplateHorizontal = [][]string{{".", "."}}
 
 func TestNewGameWorldHorizontal(t *testing.T) {
-	tileTemplates := make(map[string]*gameworld.TileTemplate)
-	tileTemplates["."] = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
-	tileTemplates["w"] = gameworld.NewTileTemplate(".", "Wall", gameworld.NotMoveable)
+	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateHorizontal)
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
 
-	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal, tileTemplates)
+	gw := gameworld.NewGameWorld(roomTemplate)
 
 	//test for tilemarks
-	if !(gw.Room().Area()[0][0].Mark() == tileTemplates["."].Mark()) ||
-		!(gw.Room().Area()[0][1].Mark() == tileTemplates["."].Mark()) {
+	if !(gw.Room().Area()[0][0].Mark() == roomTemplate.TileTemplates()["."].Mark()) ||
+		!(gw.Room().Area()[0][1].Mark() == roomTemplate.TileTemplates()["."].Mark()) {
 		t.Error("Invalide tile marks")
 	}
 
@@ -31,15 +31,16 @@ func TestNewGameWorldHorizontal(t *testing.T) {
 var testGameWorldTemplateVertical = [][]string{{"."}, {"."}}
 
 func TestNewGameWorldVertical(t *testing.T) {
-	tileTemplates := make(map[string]*gameworld.TileTemplate)
-	tileTemplates["."] = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
-	tileTemplates["w"] = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
 
-	gw := gameworld.NewGameWorld(testGameWorldTemplateVertical, tileTemplates)
+	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateVertical)
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+
+	gw := gameworld.NewGameWorld(roomTemplate)
 
 	//test for tilemarks
-	if !(gw.Room().Area()[0][0].Mark() == tileTemplates["."].Mark()) ||
-		!(gw.Room().Area()[1][0].Mark() == tileTemplates["."].Mark()) {
+	if !(gw.Room().Area()[0][0].Mark() == roomTemplate.TileTemplates()["."].Mark()) ||
+		!(gw.Room().Area()[1][0].Mark() == roomTemplate.TileTemplates()["."].Mark()) {
 		t.Error("Invalide tile marks")
 	}
 

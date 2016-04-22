@@ -28,11 +28,11 @@ func TestGetTilePosition(t *testing.T) {
 func TestMoveCharacter(t *testing.T) {
 	character := gameworld.NewCharacter()
 
-	tileTemplates := make(map[string]*gameworld.TileTemplate)
-	tileTemplates["."] = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
-	tileTemplates["w"] = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
+	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateHorizontal)
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
 
-	gw := gameworld.NewGameWorld(testGameWorldTemplateHorizontal, tileTemplates)
+	gw := gameworld.NewGameWorld(roomTemplate)
 	gw.SetCharacter(character, gw.Room().Area()[0][0])
 
 	character.Move(gameworld.Right)
