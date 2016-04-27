@@ -1,4 +1,4 @@
-package gameworld
+package room
 
 import "fmt"
 
@@ -8,7 +8,7 @@ type Room struct {
 }
 
 //NewRoom creates a new Room from a template
-func NewRoom(roomTemplate *RoomTemplate) *Room {
+func NewRoom(roomTemplate *Template) *Room {
 	room := Room{}
 
 	//fill gameArea with defautlvalue

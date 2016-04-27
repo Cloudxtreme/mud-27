@@ -1,4 +1,4 @@
-package gameworld
+package room
 
 //TileTemplate template for a tile
 type TileTemplate struct {

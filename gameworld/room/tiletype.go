@@ -1,4 +1,4 @@
-package gameworld
+package room
 
 //TileType the type of a GameTile
 type TileType int

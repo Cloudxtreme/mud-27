@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/room"
 )
 
 func main() {
@@ -15,9 +16,9 @@ func main() {
 	a = append(a, []string{"w", ".", ".", "w"})
 	a = append(a, []string{"w", "w", "w", "w"})
 
-	roomTemplate := gameworld.NewRoomTemplate(a)
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable))
+	roomTemplate := room.NewRoomTemplate(a)
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
+	roomTemplate.AddTileTemplate(room.NewTileTemplate("w", "Wall", room.NotMoveable))
 
 	gw := gameworld.NewGameWorld(roomTemplate)
 	character := gameworld.NewCharacter()
@@ -27,11 +28,11 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("Move Right")
-	character.Move(gameworld.Right)
+	character.Move(room.Right)
 	gw.Room().PrintRoom()
 	fmt.Println()
 
 	fmt.Println("Move Right")
-	character.Move(gameworld.Right)
+	character.Move(room.Right)
 	gw.Room().PrintRoom()
 }
