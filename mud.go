@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/character"
 	"github.com/Norskan/mud/gameworld/room"
 )
 
@@ -21,7 +22,7 @@ func main() {
 	roomTemplate.AddTileTemplate(room.NewTileTemplate("w", "Wall", room.NotMoveable))
 
 	gw := gameworld.NewGameWorld(roomTemplate)
-	character := gameworld.NewCharacter()
+	character := character.NewCharacter()
 	gw.SetCharacter(character, gw.Room().Area()[1][1])
 
 	gw.Room().PrintRoom()

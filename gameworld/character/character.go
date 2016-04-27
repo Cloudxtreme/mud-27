@@ -1,4 +1,4 @@
-package gameworld
+package character
 
 import (
 	"github.com/Norskan/mud/gameworld/room"
