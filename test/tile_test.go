@@ -4,16 +4,17 @@ import (
 	"testing"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/room"
 )
 
 //parameter for tile test values
 var testTileID = 0
 
-var testTileFloor = gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable)
-var testTileWall = gameworld.NewTileTemplate("w", "Wall", gameworld.NotMoveable)
+var testTileFloor = room.NewTileTemplate(".", "Floor", room.Moveable)
+var testTileWall = room.NewTileTemplate("w", "Wall", room.NotMoveable)
 
 func TestTileNewDefaultTile(t *testing.T) {
-	newDefaultTile := gameworld.NewTile(testTileID, testTileFloor)
+	newDefaultTile := room.NewTile(testTileID, testTileFloor)
 
 	if !(newDefaultTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
@@ -25,7 +26,7 @@ func TestTileNewDefaultTile(t *testing.T) {
 }
 
 func TestTileNewTile(t *testing.T) {
-	newTile := gameworld.NewTile(testTileID, testTileFloor)
+	newTile := room.NewTile(testTileID, testTileFloor)
 
 	if !(newTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
@@ -41,38 +42,38 @@ func TestTileNewTile(t *testing.T) {
 }
 
 func TestTileConnection(t *testing.T) {
-	tileUp := gameworld.NewTile(testTileID, testTileFloor)
-	tileRight := gameworld.NewTile(testTileID, testTileFloor)
-	tileDown := gameworld.NewTile(testTileID, testTileFloor)
-	tileLeft := gameworld.NewTile(testTileID, testTileFloor)
+	tileUp := room.NewTile(testTileID, testTileFloor)
+	tileRight := room.NewTile(testTileID, testTileFloor)
+	tileDown := room.NewTile(testTileID, testTileFloor)
+	tileLeft := room.NewTile(testTileID, testTileFloor)
 
-	tileMiddle := gameworld.NewTile(testTileID, testTileFloor)
+	tileMiddle := room.NewTile(testTileID, testTileFloor)
 
-	tileMiddle.SetConnetionTile(tileUp, gameworld.Up)
-	tileMiddle.SetConnetionTile(tileRight, gameworld.Right)
-	tileMiddle.SetConnetionTile(tileDown, gameworld.Down)
-	tileMiddle.SetConnetionTile(tileLeft, gameworld.Left)
+	tileMiddle.SetConnetionTile(tileUp, room.Up)
+	tileMiddle.SetConnetionTile(tileRight, room.Right)
+	tileMiddle.SetConnetionTile(tileDown, room.Down)
+	tileMiddle.SetConnetionTile(tileLeft, room.Left)
 
-	if !(tileMiddle.GetConnetionTile(gameworld.Up) == tileUp) {
+	if !(tileMiddle.GetConnetionTile(room.Up) == tileUp) {
 		t.Error("Invalide tile set for tileUp")
 	}
 
-	if !(tileMiddle.GetConnetionTile(gameworld.Right) == tileRight) {
+	if !(tileMiddle.GetConnetionTile(room.Right) == tileRight) {
 		t.Error("Invalide tile set for tileRight")
 	}
 
-	if !(tileMiddle.GetConnetionTile(gameworld.Down) == tileDown) {
+	if !(tileMiddle.GetConnetionTile(room.Down) == tileDown) {
 		t.Error("Invalide tile set for tileDown")
 	}
 
-	if !(tileMiddle.GetConnetionTile(gameworld.Left) == tileLeft) {
+	if !(tileMiddle.GetConnetionTile(room.Left) == tileLeft) {
 		t.Error("Invalide tile set for tileLeft")
 	}
 }
 
 func TestTileSetCharacter(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTile := gameworld.NewTile(testTileID, testTileFloor)
+	testTile := room.NewTile(testTileID, testTileFloor)
 
 	testTile.SetCharacter(actualCharacter)
 
@@ -83,10 +84,10 @@ func TestTileSetCharacter(t *testing.T) {
 
 func TestTileMoveCharacterMovalbe(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTileA := gameworld.NewTile(testTileID, testTileFloor)
-	testTileB := gameworld.NewTile(testTileID, testTileFloor)
+	testTileA := room.NewTile(testTileID, testTileFloor)
+	testTileB := room.NewTile(testTileID, testTileFloor)
 
-	testTileA.SetConnetionTile(testTileB, gameworld.Left)
+	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
 	actualCharacter.SetTilePosition(testTileA)
 
@@ -100,10 +101,10 @@ func TestTileMoveCharacterMovalbe(t *testing.T) {
 
 func TestTileMoveCharacterNotMovable(t *testing.T) {
 	actualCharacter := gameworld.NewCharacter()
-	testTileA := gameworld.NewTile(testTileID, testTileFloor)
-	testTileB := gameworld.NewTile(testTileID, testTileWall)
+	testTileA := room.NewTile(testTileID, testTileFloor)
+	testTileB := room.NewTile(testTileID, testTileWall)
 
-	testTileA.SetConnetionTile(testTileB, gameworld.Left)
+	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
 	actualCharacter.SetTilePosition(testTileA)
 

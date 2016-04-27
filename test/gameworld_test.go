@@ -4,14 +4,15 @@ import (
 	"testing"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/room"
 )
 
 var testGameWorldTemplateHorizontal = [][]string{{".", "."}}
 
 func TestNewGameWorldHorizontal(t *testing.T) {
-	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateHorizontal)
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate := room.NewRoomTemplate(testGameWorldTemplateHorizontal)
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
 	gw := gameworld.NewGameWorld(roomTemplate)
 
@@ -22,8 +23,8 @@ func TestNewGameWorldHorizontal(t *testing.T) {
 	}
 
 	//test for connection
-	if !(gw.Room().Area()[0][0].GetConnetionTile(gameworld.Right) == gw.Room().Area()[0][1]) ||
-		!(gw.Room().Area()[0][1].GetConnetionTile(gameworld.Left) == gw.Room().Area()[0][0]) {
+	if !(gw.Room().Area()[0][0].GetConnetionTile(room.Right) == gw.Room().Area()[0][1]) ||
+		!(gw.Room().Area()[0][1].GetConnetionTile(room.Left) == gw.Room().Area()[0][0]) {
 		t.Error("Tiles were not right connected horizontaly")
 	}
 }
@@ -32,9 +33,9 @@ var testGameWorldTemplateVertical = [][]string{{"."}, {"."}}
 
 func TestNewGameWorldVertical(t *testing.T) {
 
-	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateVertical)
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate := room.NewRoomTemplate(testGameWorldTemplateVertical)
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
 	gw := gameworld.NewGameWorld(roomTemplate)
 
@@ -45,8 +46,8 @@ func TestNewGameWorldVertical(t *testing.T) {
 	}
 
 	//test for connection
-	if !(gw.Room().Area()[0][0].GetConnetionTile(gameworld.Down) == gw.Room().Area()[1][0]) ||
-		!(gw.Room().Area()[1][0].GetConnetionTile(gameworld.Up) == gw.Room().Area()[0][0]) {
+	if !(gw.Room().Area()[0][0].GetConnetionTile(room.Down) == gw.Room().Area()[1][0]) ||
+		!(gw.Room().Area()[1][0].GetConnetionTile(room.Up) == gw.Room().Area()[0][0]) {
 		t.Error("Tiles were not right connected verticaly")
 	}
 }
