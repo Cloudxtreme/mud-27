@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/character"
 	"github.com/Norskan/mud/gameworld/room"
 )
 
@@ -72,7 +72,7 @@ func TestTileConnection(t *testing.T) {
 }
 
 func TestTileSetCharacter(t *testing.T) {
-	actualCharacter := gameworld.NewCharacter()
+	actualCharacter := character.NewCharacter()
 	testTile := room.NewTile(testTileID, testTileFloor)
 
 	testTile.SetCharacter(actualCharacter)
@@ -83,7 +83,7 @@ func TestTileSetCharacter(t *testing.T) {
 }
 
 func TestTileMoveCharacterMovalbe(t *testing.T) {
-	actualCharacter := gameworld.NewCharacter()
+	actualCharacter := character.NewCharacter()
 	testTileA := room.NewTile(testTileID, testTileFloor)
 	testTileB := room.NewTile(testTileID, testTileFloor)
 
@@ -100,7 +100,7 @@ func TestTileMoveCharacterMovalbe(t *testing.T) {
 }
 
 func TestTileMoveCharacterNotMovable(t *testing.T) {
-	actualCharacter := gameworld.NewCharacter()
+	actualCharacter := character.NewCharacter()
 	testTileA := room.NewTile(testTileID, testTileFloor)
 	testTileB := room.NewTile(testTileID, testTileWall)
 

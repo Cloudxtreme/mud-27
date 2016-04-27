@@ -4,11 +4,12 @@ import (
 	"testing"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/character"
 	"github.com/Norskan/mud/gameworld/room"
 )
 
 func TestCharacterNewCharacter(t *testing.T) {
-	newCharacter := gameworld.NewCharacter()
+	newCharacter := character.NewCharacter()
 
 	if !(newCharacter != nil) {
 		t.Error("Expected a new Character")
@@ -16,7 +17,7 @@ func TestCharacterNewCharacter(t *testing.T) {
 }
 
 func TestGetTilePosition(t *testing.T) {
-	newCharacter := gameworld.NewCharacter()
+	newCharacter := character.NewCharacter()
 	gameTile := room.NewTile(testTileID, testTileWall)
 
 	newCharacter.SetTilePosition(gameTile)
@@ -27,7 +28,7 @@ func TestGetTilePosition(t *testing.T) {
 }
 
 func TestMoveCharacter(t *testing.T) {
-	character := gameworld.NewCharacter()
+	character := character.NewCharacter()
 
 	roomTemplate := room.NewRoomTemplate(testGameWorldTemplateHorizontal)
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
