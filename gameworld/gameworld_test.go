@@ -5,12 +5,11 @@ import (
 
 	"github.com/Norskan/mud/gameworld"
 	"github.com/Norskan/mud/gameworld/room"
+	"github.com/Norskan/mud/gameworld/testutil"
 )
 
-var testGameWorldTemplateHorizontal = [][]string{{".", "."}}
-
 func TestNewGameWorldHorizontal(t *testing.T) {
-	roomTemplate := room.NewRoomTemplate(testGameWorldTemplateHorizontal)
+	roomTemplate := room.NewRoomTemplate(testutil.TestGameWorldTemplateHorizontal)
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
@@ -29,11 +28,9 @@ func TestNewGameWorldHorizontal(t *testing.T) {
 	}
 }
 
-var testGameWorldTemplateVertical = [][]string{{"."}, {"."}}
-
 func TestNewGameWorldVertical(t *testing.T) {
 
-	roomTemplate := room.NewRoomTemplate(testGameWorldTemplateVertical)
+	roomTemplate := room.NewRoomTemplate(testutil.TestGameWorldTemplateVertical)
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 

@@ -4,70 +4,44 @@ import (
 	"testing"
 
 	"github.com/Norskan/mud/gameworld/room"
+	"github.com/Norskan/mud/gameworld/testutil"
 )
 
-//parameter for tile test values
-var testTileID = 0
-
-var testTileFloor = room.NewTileTemplate(".", "Floor", room.Moveable)
-var testTileWall = room.NewTileTemplate("w", "Wall", room.NotMoveable)
-
-type CharacterMokup struct {
-	tilePosition *room.GameTile
-}
-
-func NewCharacter() *CharacterMokup {
-	return &CharacterMokup{}
-}
-
-func (character *CharacterMokup) GetTilePositon() *room.GameTile {
-	return character.tilePosition
-}
-
-func (character *CharacterMokup) SetTilePosition(gameTile *room.GameTile) {
-	character.tilePosition = gameTile
-}
-
-func (character *CharacterMokup) Move(direction room.Direction) {
-	currentGameTile := character.GetTilePositon()
-	currentGameTile.GetConnetionTile(direction).MoveCharacter(character)
-}
-
 func TestTileNewDefaultTile(t *testing.T) {
-	newDefaultTile := room.NewTile(testTileID, testTileFloor)
+	newDefaultTile := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
-	if !(newDefaultTile.ID() == testTileID) {
-		t.Errorf("Expected %v for ID", testTileID)
+	if !(newDefaultTile.ID() == testutil.TestTileID) {
+		t.Errorf("Expected %v for ID", testutil.TestTileID)
 	}
 
-	if !(newDefaultTile.Mark() == testTileFloor.Mark()) {
-		t.Errorf("Expected %v for Mark", testTileFloor.Mark())
+	if !(newDefaultTile.Mark() == testutil.TestTileFloor.Mark()) {
+		t.Errorf("Expected %v for Mark", testutil.TestTileFloor.Mark())
 	}
 }
 
 func TestTileNewTile(t *testing.T) {
-	newTile := room.NewTile(testTileID, testTileFloor)
+	newTile := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
-	if !(newTile.ID() == testTileID) {
-		t.Errorf("Expected %v for ID", testTileID)
+	if !(newTile.ID() == testutil.TestTileID) {
+		t.Errorf("Expected %v for ID", testutil.TestTileID)
 	}
 
-	if !(newTile.Mark() == testTileFloor.Mark()) {
-		t.Errorf("Expected %v for Mark", testTileFloor.Mark())
+	if !(newTile.Mark() == testutil.TestTileFloor.Mark()) {
+		t.Errorf("Expected %v for Mark", testutil.TestTileFloor.Mark())
 	}
 
-	if !(newTile.Description() == testTileFloor.Description()) {
-		t.Errorf("Expected %v for Description", testTileFloor.Description())
+	if !(newTile.Description() == testutil.TestTileFloor.Description()) {
+		t.Errorf("Expected %v for Description", testutil.TestTileFloor.Description())
 	}
 }
 
 func TestTileConnection(t *testing.T) {
-	tileUp := room.NewTile(testTileID, testTileFloor)
-	tileRight := room.NewTile(testTileID, testTileFloor)
-	tileDown := room.NewTile(testTileID, testTileFloor)
-	tileLeft := room.NewTile(testTileID, testTileFloor)
+	tileUp := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
+	tileRight := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
+	tileDown := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
+	tileLeft := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
-	tileMiddle := room.NewTile(testTileID, testTileFloor)
+	tileMiddle := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
 	tileMiddle.SetConnetionTile(tileUp, room.Up)
 	tileMiddle.SetConnetionTile(tileRight, room.Right)
@@ -92,8 +66,8 @@ func TestTileConnection(t *testing.T) {
 }
 
 func TestTileSetCharacter(t *testing.T) {
-	actualCharacter := NewCharacter()
-	testTile := room.NewTile(testTileID, testTileFloor)
+	actualCharacter := testutil.NewCharacterMokup()
+	testTile := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
 	testTile.SetCharacter(actualCharacter)
 
@@ -103,9 +77,9 @@ func TestTileSetCharacter(t *testing.T) {
 }
 
 func TestTileMoveCharacterMovalbe(t *testing.T) {
-	actualCharacter := NewCharacter()
-	testTileA := room.NewTile(testTileID, testTileFloor)
-	testTileB := room.NewTile(testTileID, testTileFloor)
+	actualCharacter := testutil.NewCharacterMokup()
+	testTileA := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
+	testTileB := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
 
 	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
@@ -120,9 +94,9 @@ func TestTileMoveCharacterMovalbe(t *testing.T) {
 }
 
 func TestTileMoveCharacterNotMovable(t *testing.T) {
-	actualCharacter := NewCharacter()
-	testTileA := room.NewTile(testTileID, testTileFloor)
-	testTileB := room.NewTile(testTileID, testTileWall)
+	actualCharacter := testutil.NewCharacterMokup()
+	testTileA := room.NewTile(testutil.TestTileID, testutil.TestTileFloor)
+	testTileB := room.NewTile(testutil.TestTileID, testutil.TestTileWall)
 
 	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
