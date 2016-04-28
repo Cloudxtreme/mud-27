@@ -1,15 +1,17 @@
-package room
+package room_test
 
 import (
 	"testing"
+
+	"github.com/Norskan/mud/gameworld/room"
 )
 
 func TestTileTypeToString(t *testing.T) {
-	if !(Moveable.String() == "Movable") {
+	if !(room.Moveable.String() == "Movable") {
 		t.Error("Expected Moveable for String function")
 	}
 
-	if !(NotMoveable.String() == "NotMoveable") {
+	if !(room.NotMoveable.String() == "NotMoveable") {
 		t.Error("Expected NotMoveable for String function")
 	}
 }

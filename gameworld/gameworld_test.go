@@ -1,8 +1,9 @@
-package gameworld
+package gameworld_test
 
 import (
 	"testing"
 
+	"github.com/Norskan/mud/gameworld"
 	"github.com/Norskan/mud/gameworld/room"
 )
 
@@ -13,7 +14,7 @@ func TestNewGameWorldHorizontal(t *testing.T) {
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
-	gw := NewGameWorld(roomTemplate)
+	gw := gameworld.NewGameWorld(roomTemplate)
 
 	//test for tilemarks
 	if !(gw.Room().Area()[0][0].Mark() == roomTemplate.TileTemplates()["."].Mark()) ||
@@ -36,7 +37,7 @@ func TestNewGameWorldVertical(t *testing.T) {
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
-	gw := NewGameWorld(roomTemplate)
+	gw := gameworld.NewGameWorld(roomTemplate)
 
 	//test for tilemarks
 	if !(gw.Room().Area()[0][0].Mark() == roomTemplate.TileTemplates()["."].Mark()) ||

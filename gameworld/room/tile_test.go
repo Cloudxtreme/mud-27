@@ -1,38 +1,40 @@
-package room
+package room_test
 
 import (
 	"testing"
+
+	"github.com/Norskan/mud/gameworld/room"
 )
 
 //parameter for tile test values
 var testTileID = 0
 
-var testTileFloor = NewTileTemplate(".", "Floor", Moveable)
-var testTileWall = NewTileTemplate("w", "Wall", NotMoveable)
+var testTileFloor = room.NewTileTemplate(".", "Floor", room.Moveable)
+var testTileWall = room.NewTileTemplate("w", "Wall", room.NotMoveable)
 
 type CharacterMokup struct {
-	tilePosition *GameTile
+	tilePosition *room.GameTile
 }
 
 func NewCharacter() *CharacterMokup {
 	return &CharacterMokup{}
 }
 
-func (character *CharacterMokup) GetTilePositon() *GameTile {
+func (character *CharacterMokup) GetTilePositon() *room.GameTile {
 	return character.tilePosition
 }
 
-func (character *CharacterMokup) SetTilePosition(gameTile *GameTile) {
+func (character *CharacterMokup) SetTilePosition(gameTile *room.GameTile) {
 	character.tilePosition = gameTile
 }
 
-func (character *CharacterMokup) Move(direction Direction) {
+func (character *CharacterMokup) Move(direction room.Direction) {
 	currentGameTile := character.GetTilePositon()
 	currentGameTile.GetConnetionTile(direction).MoveCharacter(character)
 }
 
 func TestTileNewDefaultTile(t *testing.T) {
-	newDefaultTile := NewTile(testTileID, testTileFloor)
+	newDefaultTile := room.NewTile(testTileID, testTileFloor)
 
 	if !(newDefaultTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
@@ -44,7 +46,7 @@ func TestTileNewDefaultTile(t *testing.T) {
 }
 
 func TestTileNewTile(t *testing.T) {
-	newTile := NewTile(testTileID, testTileFloor)
+	newTile := room.NewTile(testTileID, testTileFloor)
 
 	if !(newTile.ID() == testTileID) {
 		t.Errorf("Expected %v for ID", testTileID)
@@ -60,38 +62,38 @@ func TestTileNewTile(t *testing.T) {
 }
 
 func TestTileConnection(t *testing.T) {
-	tileUp := NewTile(testTileID, testTileFloor)
-	tileRight := NewTile(testTileID, testTileFloor)
-	tileDown := NewTile(testTileID, testTileFloor)
-	tileLeft := NewTile(testTileID, testTileFloor)
+	tileUp := room.NewTile(testTileID, testTileFloor)
+	tileRight := room.NewTile(testTileID, testTileFloor)
+	tileDown := room.NewTile(testTileID, testTileFloor)
+	tileLeft := room.NewTile(testTileID, testTileFloor)
 
-	tileMiddle := NewTile(testTileID, testTileFloor)
+	tileMiddle := room.NewTile(testTileID, testTileFloor)
 
-	tileMiddle.SetConnetionTile(tileUp, Up)
-	tileMiddle.SetConnetionTile(tileRight, Right)
-	tileMiddle.SetConnetionTile(tileDown, Down)
-	tileMiddle.SetConnetionTile(tileLeft, Left)
+	tileMiddle.SetConnetionTile(tileUp, room.Up)
+	tileMiddle.SetConnetionTile(tileRight, room.Right)
+	tileMiddle.SetConnetionTile(tileDown, room.Down)
+	tileMiddle.SetConnetionTile(tileLeft, room.Left)
 
-	if !(tileMiddle.GetConnetionTile(Up) == tileUp) {
+	if !(tileMiddle.GetConnetionTile(room.Up) == tileUp) {
 		t.Error("Invalide tile set for tileUp")
 	}
 
-	if !(tileMiddle.GetConnetionTile(Right) == tileRight) {
+	if !(tileMiddle.GetConnetionTile(room.Right) == tileRight) {
 		t.Error("Invalide tile set for tileRight")
 	}
 
-	if !(tileMiddle.GetConnetionTile(Down) == tileDown) {
+	if !(tileMiddle.GetConnetionTile(room.Down) == tileDown) {
 		t.Error("Invalide tile set for tileDown")
 	}
 
-	if !(tileMiddle.GetConnetionTile(Left) == tileLeft) {
+	if !(tileMiddle.GetConnetionTile(room.Left) == tileLeft) {
 		t.Error("Invalide tile set for tileLeft")
 	}
 }
 
 func TestTileSetCharacter(t *testing.T) {
 	actualCharacter := NewCharacter()
-	testTile := NewTile(testTileID, testTileFloor)
+	testTile := room.NewTile(testTileID, testTileFloor)
 
 	testTile.SetCharacter(actualCharacter)
 
@@ -102,10 +104,10 @@ func TestTileSetCharacter(t *testing.T) {
 
 func TestTileMoveCharacterMovalbe(t *testing.T) {
 	actualCharacter := NewCharacter()
-	testTileA := NewTile(testTileID, testTileFloor)
-	testTileB := NewTile(testTileID, testTileFloor)
+	testTileA := room.NewTile(testTileID, testTileFloor)
+	testTileB := room.NewTile(testTileID, testTileFloor)
 
-	testTileA.SetConnetionTile(testTileB, Left)
+	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
 	actualCharacter.SetTilePosition(testTileA)
 
@@ -119,10 +121,10 @@ func TestTileMoveCharacterMovalbe(t *testing.T) {
 
 func TestTileMoveCharacterNotMovable(t *testing.T) {
 	actualCharacter := NewCharacter()
-	testTileA := NewTile(testTileID, testTileFloor)
-	testTileB := NewTile(testTileID, testTileWall)
+	testTileA := room.NewTile(testTileID, testTileFloor)
+	testTileB := room.NewTile(testTileID, testTileWall)
 
-	testTileA.SetConnetionTile(testTileB, Left)
+	testTileA.SetConnetionTile(testTileB, room.Left)
 	testTileA.SetCharacter(actualCharacter)
 	actualCharacter.SetTilePosition(testTileA)
 
