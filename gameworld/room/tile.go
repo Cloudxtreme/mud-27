@@ -1,8 +1,14 @@
-package gameworld
+package room
 
 import (
 	"fmt"
 )
+
+// Character interface for a character
+type Character interface {
+	GetTilePositon() *GameTile
+	SetTilePosition(gameTile *GameTile)
+}
 
 //GameTile ....
 type GameTile struct {
@@ -19,7 +25,7 @@ type GameTile struct {
 
 	//Character on the tile
 	// TODO: refactor to multible characters
-	character *Character
+	character Character
 
 	tileType TileType
 }
@@ -86,12 +92,12 @@ func (gameTile *GameTile) SetConnetionTile(connectionTile *GameTile, direction D
 }
 
 //Character returns the character set on the tile or nil if non is set
-func (gameTile *GameTile) Character() *Character {
+func (gameTile *GameTile) Character() Character {
 	return gameTile.character
 }
 
 //SetCharacter set a character on the tile
-func (gameTile *GameTile) SetCharacter(character *Character) {
+func (gameTile *GameTile) SetCharacter(character Character) {
 	gameTile.character = character
 }
 
@@ -101,11 +107,11 @@ func (gameTile *GameTile) TileType() TileType {
 }
 
 //MoveCharacter moves a character on the tile
-func (gameTile *GameTile) MoveCharacter(character *Character) bool {
+func (gameTile *GameTile) MoveCharacter(character Character) bool {
 	if gameTile.TileType() == Moveable {
-		character.tilePosition.character = nil
-		gameTile.character = character
-		character.tilePosition = gameTile
+		character.GetTilePositon().SetCharacter(nil)
+		gameTile.SetCharacter(character)
+		character.SetTilePosition(gameTile)
 		return true
 	}
 	return false

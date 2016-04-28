@@ -1,13 +1,16 @@
-package test
+package character_test
 
 import (
 	"testing"
 
 	"github.com/Norskan/mud/gameworld"
+	"github.com/Norskan/mud/gameworld/character"
+	"github.com/Norskan/mud/gameworld/room"
+	"github.com/Norskan/mud/gameworld/testutil"
 )
 
 func TestCharacterNewCharacter(t *testing.T) {
-	newCharacter := gameworld.NewCharacter()
+	newCharacter := character.NewCharacter()
 
 	if !(newCharacter != nil) {
 		t.Error("Expected a new Character")
@@ -15,8 +18,8 @@ func TestCharacterNewCharacter(t *testing.T) {
 }
 
 func TestGetTilePosition(t *testing.T) {
-	newCharacter := gameworld.NewCharacter()
-	gameTile := gameworld.NewTile(testTileID, testTileWall)
+	newCharacter := character.NewCharacter()
+	gameTile := room.NewTile(testutil.TestTileID, testutil.TestTileWall)
 
 	newCharacter.SetTilePosition(gameTile)
 
@@ -26,16 +29,16 @@ func TestGetTilePosition(t *testing.T) {
 }
 
 func TestMoveCharacter(t *testing.T) {
-	character := gameworld.NewCharacter()
+	character := character.NewCharacter()
 
-	roomTemplate := gameworld.NewRoomTemplate(testGameWorldTemplateHorizontal)
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
-	roomTemplate.AddTileTemplate(gameworld.NewTileTemplate(".", "Floor", gameworld.Moveable))
+	roomTemplate := room.NewRoomTemplate(testutil.TestGameWorldTemplateHorizontal)
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
+	roomTemplate.AddTileTemplate(room.NewTileTemplate(".", "Floor", room.Moveable))
 
 	gw := gameworld.NewGameWorld(roomTemplate)
 	gw.SetCharacter(character, gw.Room().Area()[0][0])
 
-	character.Move(gameworld.Right)
+	character.Move(room.Right)
 
 	if !(character.GetTilePositon() == gw.Room().Area()[0][1]) {
 		t.Error("Character was not moved")
@@ -48,5 +51,4 @@ func TestMoveCharacter(t *testing.T) {
 	if !(gw.Room().Area()[0][1].Character() == character) {
 		t.Error("Character is not on new position")
 	}
-
 }

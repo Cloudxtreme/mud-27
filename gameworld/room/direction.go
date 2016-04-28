@@ -1,4 +1,4 @@
-package gameworld
+package room
 
 //Direction enum for direction
 type Direction int
